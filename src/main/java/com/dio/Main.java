@@ -11,13 +11,18 @@ public class Main {
 
         play.startPosicoesIniciais();
 
-        boolean ganhou = false;
+        System.out.print("\n##### SUDOKU ##### SUDOKU ##### SUDOKU #####!\n\n" + //
+                        "Digite *linha, *coluna e *valor com uma sequencia de números inteiros.\n" + //
+                        "Exemplo: '375' (3ª linha, 7ª coluna, valor 5)\n");
+
+        boolean ganhou = false;        
+        
         while (!ganhou) {
             play.print();
             play.joga(play.getSudoku());
             ganhou = play.chegaVitoria();
             if (ganhou) {
-                System.out.println("PA RA BÉNS!");
+                System.out.println("####### PA RA BÉNS! ########");
             }
 
         }

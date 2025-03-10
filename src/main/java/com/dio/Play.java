@@ -59,7 +59,6 @@ public class Play {
         for (Cubo cubo: sudoku.getCubos()) {
             totalAcertos += checaPosicoes(cubo.getPosicoes());
         }
-        System.out.println("ACertos: " + totalAcertos);
         return totalAcertos == 243;
     }
 
@@ -244,11 +243,41 @@ public class Play {
 
     public void joga(Sudoku sudoku) {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Joga! ");
+        System.out.print("\nManda: ");
         String jogada = scan.nextLine();
-        int linha = Integer.parseInt(jogada.substring(0,1)) - 1;
-        int coluna = Integer.parseInt(jogada.substring(1,2)) -1;
-        int valor = Integer.parseInt(jogada.substring(2));
+        int linha = 0;
+        int coluna = 0;
+        int valor = 0;
+        boolean invalido = true;
+        while (invalido) {
+            try{
+                if (jogada.length() != 3) {
+                    System.out.println("\n*** Preciso de exatamente 3 caracteres: ");
+                    jogada = scan.nextLine();
+                }
+
+                linha = Integer.parseInt(jogada.substring(0,1)) - 1;
+                coluna = Integer.parseInt(jogada.substring(1,2)) -1;
+                valor = Integer.parseInt(jogada.substring(2));
+                if (linha < 0 || linha > 8) {
+                    System.out.println("\n*** Número da linha deve ser entre 1 e 9: ");
+                    jogada = scan.nextLine();
+                } else if (coluna < 0 || coluna > 8) {
+                    System.out.println("\n*** Número da coluna deve ser entre 1 e 9: ");
+                    jogada = scan.nextLine();
+                } else if (valor < 1 || valor > 9) {
+                    System.out.println("\n*** Valor deve estar entre 1 e 9: ");
+                    jogada = scan.nextLine();
+                } else {
+                    invalido = false;
+                }
+            } catch (Exception e) {
+                System.out.println("\n*** Digite apenas caracteres numéricos: ");
+                jogada = scan.nextLine();
+            }
+        }
+        
+        
         for (Linha l: sudoku.getLinhas()) {
             for (Posicao p: l.getPosicoes()) {
                 if (p.getLinha().getNumero() == linha && p.getColuna().getNumero() == coluna ) {
@@ -260,9 +289,8 @@ public class Play {
                 }
             }
         }
-
-    }
-
+    }      
+        
     public void startPosicoesIniciais() {
         List<String> posicoesIniciais = Arrays.asList("119","125","138", "182","242", "255", "266", "284", "336", "375", "381", "397", "416", "443", "457", "468",
                                         "517", "528", "534", "579", "583", "592", "644", "652", "669", "698", "714", "729", "732", "771", "826", "845", "858", "861",
